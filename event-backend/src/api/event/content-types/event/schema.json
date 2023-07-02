@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "events",
+  "info": {
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Event",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "date": {
+      "type": "date",
+      "required": true,
+      "default": "2023-06-26"
+    },
+    "invitados": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::invitado.invitado",
+      "mappedBy": "event"
+    },
+    "actividads": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::actividad.actividad"
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

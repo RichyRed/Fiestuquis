@@ -4,7 +4,7 @@ const types = {
 };
 
 const initialValues = {
-  auth: false,
+  auth: (localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth')):false),
 };
 
 const storeReducer = (state, action) => {
