@@ -3,6 +3,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Card, CardContent, Typography, TextField, Button, Grid, IconButton, Modal, Box, Stack } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Switch from "@mui/material/Switch";
+
 
 interface TaskFormData {
   guests: { name: string; age: number }[];
@@ -91,6 +93,8 @@ const Column: React.FC<ColumnProps> = ({ column, deleteColumn }) => {
   const [supplyFormOpen, setSupplyFormOpen] = useState(false);
   const [guests, setGuests] = useState<{ id: string; name: string; age: number }[]>([]);
   const [supplies, setSupplies] = useState<{ id: string; name: string; price: number; quantity: number }[]>([]);
+  const [isPartyOver, setIsPartyOver] = useState(false);
+
 
   const addGuest = (guest: { name: string; age: number }) => {
     setGuests((prevGuests) => [...prevGuests, { id: uuidv4(), ...guest }]);
@@ -116,15 +120,35 @@ const Column: React.FC<ColumnProps> = ({ column, deleteColumn }) => {
   return (
     <div>
       <Card sx={{ mb: 2 }}>
-        <CardContent>
-          <Typography variant="h6">{column.name}</Typography>
+        <CardContent>         
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
+          <Typography variant="h6" style={{ textAlign: "center" }}>
+              {column.name}
+          </Typography>
+          <Switch
+            checked={isPartyOver}
+            onChange={() => setIsPartyOver(!isPartyOver)}
+            color="primary"
+            inputProps={{ "aria-label": "Toggle party status" }}
+        />
+    </div>
+
           <Typography variant="body1">{column.description}</Typography>
-          <Typography variant="body2">{column.date}</Typography>
-          <Typography variant="body2">{column.type}</Typography>
+          
         </CardContent>
         <Stack direction="column" spacing={2} sx={{ px: 2 }}>
           <div>
-            <Typography variant="subtitle1">Invitados:</Typography>
+          <Typography variant="subtitle1" style={{ marginBottom: "5px" }}>
+           Fecha: {column.date}
+            </Typography>
+          <Typography variant="subtitle1" style={{ marginBottom: "5px" }}>
+           Tipo: {column.type}
+            </Typography>
+          <Typography variant="subtitle1" style={{ marginBottom: "5px" }}>
+            Estado: {isPartyOver ? "La fiesta ya pasó" : "La fiesta está por venir"}
+          </Typography>
+
+            <Typography variant="subtitle1">Lista de invitados:</Typography>
             {guests.map((guest) => (
               <div key={guest.id} style={{ display: "flex", alignItems: "center" }}>
                 <Typography variant="body2" style={{ marginRight: "10px" }}>
@@ -142,7 +166,7 @@ const Column: React.FC<ColumnProps> = ({ column, deleteColumn }) => {
         </Stack>
         <Stack direction="column" spacing={2} sx={{ px: 2 }}>
           <div>
-            <Typography variant="subtitle1">Insumos:</Typography>
+            <Typography variant="subtitle1">Insumos necesarios:</Typography>
             {supplies.map((supply) => (
               <div key={supply.id} style={{ display: "flex", alignItems: "center" }}>
                 <Typography variant="body2" style={{ marginRight: "10px" }}>

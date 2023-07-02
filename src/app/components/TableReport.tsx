@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, TextField, Typography, Modal, Box, MenuItem, Select, Card, CardContent, Stack } from "@mui/material";
+import { Button, TextField, Typography, Modal, Box, MenuItem, Select } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import Column from "./Column";
 
@@ -44,7 +44,7 @@ const TableReport: React.FC = () => {
   return (
     <div>
       <Button variant="contained" onClick={() => setNewColumnModalOpen(true)}>
-        Agregar columna
+        Agregar fiesta
       </Button>
       {Object.entries(columns).map(([columnId, column]) => (
         <Column key={columnId} column={{ id: columnId, ...column }} deleteColumn={() => deleteColumn(columnId)} />
